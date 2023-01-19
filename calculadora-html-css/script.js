@@ -4,7 +4,7 @@ const buttons = calculator.querySelectorAll("button");
 
 let previousOperand = "";
 let currentOperand = "";
-let operation = undefined;
+let operation;
 
 function updateDisplay() {
   output.querySelector("[data-previous-operand]").textContent = previousOperand;
@@ -25,7 +25,10 @@ function performOperation(operation) {
   let result;
   const prev = parseFloat(previousOperand);
   const current = parseFloat(currentOperand);
-  if (isNaN(prev) || isNaN(current)) return;
+  if (isNaN(prev) || isNaN(current)) {
+    return;
+  }
+
   switch (operation) {
     case "+":
       result = prev + current;
@@ -42,6 +45,7 @@ function performOperation(operation) {
     default:
       return;
   }
+
   currentOperand = result;
   operation = undefined;
   previousOperand = "";
@@ -49,40 +53,52 @@ function performOperation(operation) {
 
 buttons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    const target = event.target;
+    const { target } = event;
     if (target.matches("[data-all-clear]")) {
       clear();
       updateDisplay();
       return;
     }
+
     if (target.matches("[data-delete]")) {
       deleteDigit();
       updateDisplay();
       return;
     }
+
     if (target.matches("[data-number], [data-decimal]")) {
-      if (currentOperand.includes(".") && target.matches("[data-decimal]"))
+      if (currentOperand.includes(".") && target.matches("[data-decimal]")) {
         return;
+      }
+
       currentOperand += target.textContent;
       updateDisplay();
       return;
     }
+
     if (target.matches("[data-operation]")) {
-      if (currentOperand === "") return;
+      if (currentOperand === "") {
+        return;
+      }
+
       if (previousOperand !== "") {
         performOperation(operation);
       }
+
       operation = target.textContent;
       previousOperand = currentOperand;
       currentOperand = "";
       updateDisplay();
       return;
     }
+
     if (target.matches("[data-equals]")) {
-      if (currentOperand === "" || previousOperand === "") return;
+      if (currentOperand === "" || previousOperand === "") {
+        return;
+      }
+
       performOperation(operation);
       updateDisplay();
-      return;
     }
   });
 });
