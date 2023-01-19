@@ -29,12 +29,10 @@ const newNumber = () => {
 
   console.log("El numero es: " + mainNumber + ".");
 
-  let found = false;
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 5; j++) {
       if (bingoCard[i][j] === mainNumber) {
         bingoCard[i][j] = "X";
-        found = true;
       }
     }
   }
@@ -72,9 +70,9 @@ const newTurn = () => {
   const nextTurn = confirm(
     "Haga click en acpetar para sacar un numero o en cancelar para dejar de jugar."
   );
-  if (nextTurn != true) {
+  if (nextTurn !== true) {
     alert("Adios " + userName);
-  } else {
+  } else if (nextTurn === true) {
     turno++;
     newNumber();
     showBingoCard();
@@ -85,9 +83,9 @@ const newTurn = () => {
 
 const newGame = () => {
   const newTurn = confirm("Quiere jugar de nuevo?");
-  if (newTurn != true) {
+  if (newTurn !== true) {
     alert("Adios " + userName);
-  } else {
+  } else if (newTurn === true) {
     createBingoCard();
     playBingo();
   }

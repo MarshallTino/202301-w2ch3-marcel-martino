@@ -1,13 +1,13 @@
 const runCalculadora = () => {
   let numero1 = Number(prompt("Introduce el primer numero"));
-  while (numero1 == "" || isNaN(Number(numero1))) {
+  while (numero1 === "" || isNaN(Number(numero1))) {
     numero1 = Number(prompt("El valor introducido no es un numero"));
   }
 
   let numero2 = Number(prompt("Intoduce el segundo numero"));
   if (isNaN(Number(numero2))) {
     numero2 = Number(prompt("El valor introducido no es un numero"));
-  } else if (numero2 == "") {
+  } else if (numero2 === "") {
     console.log("La raiz caudrada del primer numero es " + Math.sqrt(numero1));
   } else {
     const suma = numero1 + numero2;
